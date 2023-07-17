@@ -63,11 +63,13 @@ def handle_userinput(user_question):
             st.write(bot_template.replace(
                 "{{MSG}}", message.content), unsafe_allow_html=True)
 
+    st.session_state.user_question = ""  # Clear the question after handling it
+
+
 
 def main():
     load_dotenv()
-    st.set_page_config(page_title="Chat with multiple PDFs",
-                       page_icon=":books:")
+    st.set_page_config(page_title="Permira ChatPDF") # page_icon=":books:"
     st.write(css, unsafe_allow_html=True)
 
     if "conversation" not in st.session_state:
@@ -75,15 +77,18 @@ def main():
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = None
 
-    st.header("Chat with multiple PDFs :books:")
+    ######
+    st.header("Permira ChatPDF")
     user_question = st.text_input("Ask a question about your documents:")
     if user_question:
         handle_userinput(user_question)
 
+######
     with st.sidebar:
         st.subheader("Your documents")
+        st.text("Welcome to Permira's ChatPDF!")
         pdf_docs = st.file_uploader(
-            "Upload your PDFs here and click on 'Process'", accept_multiple_files=True)
+            "Welcome to Permira's ChatPDF! Upload your PDFs here and click on 'Process'. You can upload multiple PDFs.", accept_multiple_files=True)
         if st.button("Process"):
             with st.spinner("Processing"):
                 # get pdf text
